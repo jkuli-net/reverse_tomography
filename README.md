@@ -6,3 +6,6 @@ Reverse Tomography can be used to deliver specific signal recordings to 4d point
 In reverse_tomography.py I demonstrate that 8 audio speakers can deliver completely different customized signals to 8 specific locations.
 
 This has applications for surround sound and directed energy.
+
+fft_reverse_tomography.py is a faster version of same algorithm.
+It uses len_signal individual pseudo-inversions sized \[n_rx, n_tx] complex
