@@ -71,12 +71,12 @@ def solve_mixed_transmission(n_tx, n_rx, n_data, sample_rate, signal_speed,
     tx_fft = inv_a_fft * rx_fft[None,:,:]        
     tx_fft = torch.sum(tx_fft, dim=1)
 
-    tx = torch.fft.irfft(tx_fft)
+    tx = torch.fft.irfft(tx_fft, n=rx.shape[-1])
     
     if calc_error:        
         _rx_fft = a_fft * tx_fft[None,:,:]
         _rx_fft = torch.sum(_rx_fft, dim=1)
-        _rx = torch.fft.irfft(_rx_fft)
+        _rx = torch.fft.irfft(_rx_fft, n=rx.shape[-1])
         abs_error = torch.abs(rx - _rx)
         print('max abs error', torch.amax(abs_error))
         print('mean abs error', torch.mean(abs_error))
