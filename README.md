@@ -29,6 +29,8 @@ Light might work for the computation basis but not the quantum basis.
 The physics is beyond me at this point.  
 I could insert the proper physics for a given wave type and get a more realistic result.
 
+Audio speakers have a 3d falloff function that desribes an out of phase signal behind the speaker, that was not included in the demo.
+
 So many types of waves.
 
 How about 3d water?
