@@ -9,3 +9,5 @@ This has applications for surround sound and directed energy.
 
 fft_reverse_tomography.py is a faster version of same algorithm.
 It uses len_signal individual pseudo-inversions sized \[n_rx, n_tx] complex
+
+ct_scan.y simulates an x-ray computed tomography scan. It also simulates a dc-ray reverse tomography. It contains discussion about extending into time dimension for higher frequencies.
