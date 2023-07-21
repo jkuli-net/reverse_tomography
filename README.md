@@ -12,7 +12,7 @@ It uses len_signal individual pseudo-inversions sized \[n_rx, n_tx] complex
 
 ct_scan.y simulates an x-ray computed tomography scan. It also simulates a dc-ray reverse tomography. It contains discussion about extending into time dimension for higher frequencies.
 
-fft_reverse_tomography.py would work with magnets if you increase the signal speed.
+fft_reverse_tomography.py MIGHT work with magnets if I increase the signal speed and use the proper cancellation function.
 Possible also to adjust the falloff at each point to match the emitter pattern.
 
 It may be possible to accomplish more efficient wireless delivery of power.
