@@ -19,3 +19,5 @@ It may be possible to accomplish more efficient wireless delivery of power.
 That may or may not require highly directional magnets.
 
 Don't call Nikola Tesla yet, this hasn't been tested.
+
+todo: levitation.
