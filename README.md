@@ -21,3 +21,14 @@ That may or may not require highly directional magnets.
 Don't call Nikola Tesla yet, this hasn't been tested.
 
 todo: levitation.
+
+
+Various wave types would behave in different ways with regard to addition and cancellation.
+Magnetic fields may leave a directional remainder when they interfere at non parallel field directions.
+Light might work for the computation basis but not the quantum basis.
+The physics is beyond me at this point.  
+I could insert the proper physics for a given wave type and get a more realistic result.
+
+So many types of waves.
+
+How about 3d water?
