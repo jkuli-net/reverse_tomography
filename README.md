@@ -15,18 +15,8 @@ ct_scan.y simulates an x-ray computed tomography scan. It also simulates a dc-ra
 fft_reverse_tomography.py MIGHT work with magnets if I increase the signal speed and use the proper cancellation function.
 Possible also to adjust the falloff at each point to match the emitter pattern.
 
-It may be possible to accomplish more efficient wireless delivery of power.
-That may or may not require highly directional magnets.
-
-Don't call Nikola Tesla yet, this hasn't been tested.
-
-todo: levitation.
-
-
 Various wave types would behave in different ways with regard to addition and cancellation.
-Magnetic fields may leave a directional remainder when they interfere at non parallel field directions.
-Light might work for the computation basis but not the quantum basis.
-The physics is beyond me at this point.  
+
 I could insert the proper physics for a given wave type and get a more realistic result.
 
 Audio speakers have a 3d falloff function that desribes an out of phase signal behind the speaker, that was not included in the demo.
