@@ -221,21 +221,6 @@ print( 'energy_pred min error', torch.amin(torch.abs(energy_pred - energy_truth)
 
 
 # for proper handling of time
-# extend the data into time dimension
-# see that each pixel is the sum of signals, each with a simple delay convolution
-# see that the full matrix has (M,N) super-matrix with each cell containing (m, n) convolution
-
-# recv[0] = conv(trans[0], mat00)*f00 + conv(trans[1], mat01)*f01 + conv(trans[2], mat02)*f02
-# recv[1] = conv(trans[0], mat10)*f10 + conv(trans[1], mat11)*f11 + conv(trans[2], mat12)*f12
-# recv[2] = conv(trans[0], mat20)*f20 + conv(trans[1], mat21)*f21 + conv(trans[2], mat22)*f22
-
-# r[0] = t[0] * m00 + t[1] * m01 + t[2] * m02
-# r[1] = t[0] * m10 + t[1] * m11 + t[2] * m12
-# r[2] = t[0] * m20 + t[1] * m21 + t[2] * m22
-
-# applying the matrix as fft, its seperable by frequency
-# i solve for pinv(m) on each desired frequency
-
-# applying the newly inverted complex matrix to desired recv
-# gives the proper modulated trans to achieve recv
+# something similar to fft_reverse_tomography.py could work
+# xray_slice_matrix becomes the falloff matrix
 
