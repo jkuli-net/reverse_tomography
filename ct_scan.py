@@ -1,15 +1,14 @@
-# preface: this is only a demonstration of basic math
-# this method will not work for reverse xray tomography due to very high frequency
+# preface: this is only a demonstration of the basic math
+# of computed tomography scan and reverse computed tomography
 
-# i assumed very fast waves with low frequency and same phase
-# xrays are 1nm, very high frequency
-# so this is really unsuitable, would require consideration of the phase and waveform
+# the reverse part would not actually work
+# due to rays not cancelling, not having the proper cancellation function
+# frequencies requiring time dimension, high frequencies require high resolution
 
-# for oscillating radial waves see fft_reverse_tomography.py
+# time dimension is handled in fft_reverse_tomography.py  
 
-# even with proper handling of time
-# its likely impossible to deliver the proper amplitude and phase 
-# at the resolution of an xray
+# all these function are creating a single large matrix
+# the work happens at the end
 
 import torch
 import math
@@ -194,19 +193,16 @@ print( 'cube_pred mean error', torch.mean(torch.abs(cube_pred - cube_truth)) )
 print( 'cube_pred min error', torch.amin(torch.abs(cube_pred - cube_truth)) )
 
 
-# energy = xray_slice_matrix.T @ dc_rays[0].reshape(-1)
+# there is no dc_ray with a cancellation function
+# this is just a demonstration that the math works in reverse
 
 # each dc_ray value * its kernel delivers energy
 # sum of slices = energy delivered
-# _energy = torch.sum(dc_rays[0].reshape(-1, 1) * xray_slice_matrix, dim=0)
-# print(torch.allclose(energy, _energy))
+# energy = xray_slice_matrix.T @ dc_rays[0].reshape(-1)
 
 energy_truth = torch.rand( (cube_height, cube_depth, cube_width) )
 if use_cylinder_mask:  
     energy_truth *= cylinder_mask
-
-# xrays won't work here because of high frequency relative to signal speed
-# so we gonna use dc rays
 
 # predict dc_rays required to deliver energy_truth
 dc_rays = xray_slice_matrix_pinv.T @ energy_truth.reshape(cube_height, -1, 1)
@@ -221,32 +217,8 @@ print( 'energy_pred max error', torch.amax(torch.abs(energy_pred - energy_truth)
 print( 'energy_pred mean error', torch.mean(torch.abs(energy_pred - energy_truth)) )
 print( 'energy_pred min error', torch.amin(torch.abs(energy_pred - energy_truth)) )
 
-# i assume a simple additive constructive/destructive beam that delivers energy equally
-# many other beam models would work, just substituting the new function, even nonlinear functions
 
-# theoreticaly when you deliver energy_pred for a shape (like all 1s where the persons teeth are)
-# the xray measurements in cube_pred would be the xray of that region only
-# xrays in other cylinder locations would cancel each other
 
-# not sure tho... the energy would sum to 1, but is it the same as xray?
-
-# its possible to solve for an arbitrarily large cube that gives the same result zoomed
-# the shape of the data when zoomed in not a regular grid, its a result of kernel overlaps
-# so the energy delivered might not be as smooth as the low resolution cube implies
-# the high resolution cube better represents the data
-
-# dc cube results represent an average over an area
-# the audio frequency results in fft_reverse_tomography.py
-# represent a very specific point, requiring some accuracy relative to wavelength
-
-# an additional note about matrix pseudo-inversion
-# when multiple results are available, prefer the smallest result
-
-# i assumed very fast waves with low frequency and same phase
-# xrays are 1nm, very high frequency
-# so this is really unsuitable, would require consideration of the phase and waveform
-
-# for oscillating radial waves see fft_reverse_tomography.py
 
 # for proper handling of time
 # extend the data into time dimension
@@ -261,16 +233,9 @@ print( 'energy_pred min error', torch.amin(torch.abs(energy_pred - energy_truth)
 # r[1] = t[0] * m10 + t[1] * m11 + t[2] * m12
 # r[2] = t[0] * m20 + t[1] * m21 + t[2] * m22
 
-
 # applying the matrix as fft, its seperable by frequency
 # i solve for pinv(m) on each desired frequency
 
 # applying the newly inverted complex matrix to desired recv
 # gives the proper modulated trans to achieve recv
 
-# data in m is derived from delays and falloff (much smaller data)
-# so there may be a simpler solution
-
-# even with proper handling of time
-# its likely impossible to deliver the proper amplitude and phase 
-# at the resolution of an xray
