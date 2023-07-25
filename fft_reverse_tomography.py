@@ -86,7 +86,7 @@ def solve_mixed_transmission(n_tx, n_rx, n_data, sample_rate, signal_speed,
 
 n_tx = 8
 n_rx = 8
-n_data = 1024
+n_data = 1025           #prefer odd size fft, n_data=1 for DC
 
 sample_rate = 44100
 signal_speed = 343.3    #speed of sound m/sec
