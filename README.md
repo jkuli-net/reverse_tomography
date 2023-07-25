@@ -19,3 +19,7 @@ Audio speakers have a 3d falloff function that desribes an out of phase signal b
 So many types of waves.
 
 How about 3d water?
+
+Independent Component Analysis volume only un-mixing can fail when the signal has delay.
+The function in fft_reverse_tomography.py does both forward and reverse tomography with delay.
+If given mixed recordings, it un-mixes them. If given un-mixed recordings, it pre-mixes them.
