@@ -54,14 +54,14 @@ def magnetic_falloff_adapter(rx_pos, tx_pos, *custom_args):
     A = torch.zeros(3, rx_pos.shape[0], tx_pos.shape[0])
     
     for m in range(rx_pos.shape[0]):
-        pcnt = 100.0 * m / (rx_pos.shape[0] - 1)
-        print('generating falloff matrix %.2f%%' % (pcnt,), end='\r')
+        #pcnt = 100.0 * m / (rx_pos.shape[0] - 1) if rx_pos.shape[0] > 1 else 100.0
+        #print('generating falloff matrix %.2f%%' % (pcnt,), end='\r')
         
         for n in range(tx_pos.shape[0]):
             r = tx_orientation[n] @ (rx_pos[m] - tx_pos[n])
             field_vector = magnetic_field_iron_bar_core(r, *custom_args[1:])
             A[:, m, n] = tx_orientation[n].T @ field_vector    
-    print('')
+    #print('')
     return A
  
 def delay_matrix_from_positions(rx_positions, tx_positions, sample_rate, signal_speed):
@@ -138,7 +138,62 @@ def solve_mixed_transmission_1d_to_3d(n_tx, n_rx, n_data, sample_rate, signal_sp
     tx = torch.fft.irfft(tx_fft, n=rx.shape[-1])
     return tx
 
+def simple_test():
 
+    I = 150000
+    mu_0 = 1.25663706212e-6    # Vacuum permeability  kg⋅m⋅s−2·A−2
+    N = 200  # Number of turns in the coil
+    L = 0.02  # Length of the iron bar core in meters
+    R = 0.002 # Radius of the iron bar core in meters
+    integration_steps = 10000  # number of integration steps
+    mu_r_iron = 1000  # Relative permeability of iron bar
+
+    sample_rate = 2400000
+    signal_speed = 299792458    #speed of light m/sec
+
+    n_tx = 6
+    n_rx = 2
+    n_data = 1  
+
+    tx_pos = torch.rand(n_tx, 3) * 2.0 - 1.0
+    rx_pos = torch.rand(n_rx, 3) * 2.0 - 1.0
+    
+    tx_orientation = torch.zeros(n_tx, 3, 3)
+    tx_orientation[:,0,0] = 1
+    tx_orientation[:,1,1] = 1
+    tx_orientation[:,2,2] = 1
+
+    rx = torch.zeros( (n_rx, n_data, 3) )
+    rx[0,:,:] = 1.0
+
+    magnet_falloff_args = (tx_orientation, I, mu_0, N, L, R, integration_steps, mu_r_iron)
+    falloff = magnetic_falloff_adapter(rx_pos, tx_pos, *magnet_falloff_args)
+    tx = solve_mixed_transmission_1d_to_3d(n_tx, n_rx, n_data, sample_rate, signal_speed, tx_pos, rx_pos, rx, 
+                                  magnetic_falloff_adapter, magnet_falloff_args )
+        
+    print('falloff for all tx at reciever 0  falloff[:,0,:].T')
+    print(falloff[:,0,:].T)
+    print('power for all tx')
+    print(tx)
+
+    total = falloff[:,0,:].T * tx
+    print('fields at reciever 0')
+    print(total)
+    print('sum of fields at reciever 0')
+    print(torch.sum(total,dim=0))
+    print('requested at receiver 0')
+    print(rx[0])
+    
+    total = falloff[:,1,:].T * tx
+    print('sum of fields at reciever 1')
+    print(torch.sum(total,dim=0))
+    print('requested at receiver 1')
+    print(rx[1])
+
+
+print('running simple test')
+simple_test()
+print('finished simple test\n')
 
 
 I = 1.5  # Current in amperes
@@ -184,4 +239,3 @@ print('field min abs error', torch.amin(abs_error))
 
 # possibly could collapse rx back to an amplitude, and get 1:1 instead of 3:1, in a random direction
 # sqrt( r0^2 + r1^2 + r2^2 ), not sure though
-
