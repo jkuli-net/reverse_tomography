@@ -37,6 +37,10 @@ def delay_fft(delay, data_len, real=False):
 # provide positions of transmitters and recievers
 # provide the audio you would like each reciever to experience in rx
 # returns the proper audio to transmit
+
+# use the same function for forward tomography
+# provide received audio
+# returns the unmixed transmitted data
 def solve_mixed_transmission(n_tx, n_rx, n_data, sample_rate, signal_speed,
                                tx_pos, rx_pos, rx, calc_error=False, use_linear_resample=False):
     
