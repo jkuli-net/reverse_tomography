@@ -4,6 +4,9 @@ import torch
 
 # This is a math demonstration, these are not actual numbers
 
+# Uses multiple magnets to create specially crafted magnetic field.  
+# For wireless charging, etc., cover the unused falloff range with zero?
+
 # https://en.wikipedia.org/wiki/Biot%E2%80%93Savart_law
 
 # Biot-Savart_law
@@ -101,8 +104,8 @@ def fft_sim_transmit_1d_to_3d(n_tx, n_rx, n_data, sample_rate, signal_speed,
 
 #solve_mixed_transmission
 #provide positions of transmitters and recievers
-#provide the audio you would like each reciever to experience in rx
-#returns the proper audio to transmit
+#provide the signal you would like each reciever to experience in rx
+#returns the proper amplitude to transmit
 def solve_mixed_transmission_1d_to_3d(n_tx, n_rx, n_data, sample_rate, signal_speed,
                                tx_pos, rx_pos, rx,
                                use_custom_falloff=None, custom_falloff_args=None):
