@@ -5,7 +5,6 @@ import torch
 # This is a math demonstration, these are not actual numbers
 
 # Uses multiple magnets to create specially crafted magnetic field.  
-# For wireless charging, etc., cover the unused falloff range with zero?
 
 # https://en.wikipedia.org/wiki/Biot%E2%80%93Savart_law
 
