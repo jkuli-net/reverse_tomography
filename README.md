@@ -1,7 +1,7 @@
 # Reverse Tomography
 
 
-In fft_reverse_tomography.py I demonstrate that 8 audio speakers can deliver completely different customized signals to 8 specific locations.
+In fft_reverse_tomography.py I demonstrate that 8 audio speakers can deliver completely different customized signals to 8 specific locations. Very specific locations.
 
 This has applications for surround sound and directed energy.
 
